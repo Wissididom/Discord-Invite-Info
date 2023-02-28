@@ -2,7 +2,7 @@
 if (isset($_GET['invite'])) {
 	$invite = $_GET['invite'];
 	header('Content-Type: application/json');
-	$ch = curl_init("https://discord.com/api/v8/invites/$invite?with_counts=true");
+	$ch = curl_init("https://discord.com/api/v10/invites/$invite?with_counts=true");
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 	curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
 	curl_setopt($ch, CURLOPT_MAXREDIRS, 3);
