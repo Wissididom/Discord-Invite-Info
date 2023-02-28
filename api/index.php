@@ -25,20 +25,6 @@ switch ($lang) {
 		$copyFailed = "Copy failed";
 		$save = "Save Data";
 }
-function readFileWithoutBOM($path) {
-	if (!file_exists($path)) {
-		return;
-	}
-	$f = fopen($path, 'r');
-	$t = fread($f, filesize($path));
-	fclose($f);
-	if (substr($t, 0, 3) == b'\xef\xbb\xbf') {
-		$t = substr($t, 3);
-	}
-	$bom = pack('H*','EFBBBF');
-	$t = preg_replace("/^$bom/", '', $t);
-	return $t;
-}
 ?>
 <!DOCTYPE html>
 <html>
