@@ -53,8 +53,10 @@ switch ($lang) {
 				return fetch(`https://discord.com/api/v10/invites/${inviteCode}?with_counts=true`).then(res => {
 					return res.json();
 				}).then(json => {
-					json.guild.icon = `https://cdn.discordapp.com/icons/${json.guild.id}/${json.guild.icon}.webp`;
-					json.inviter.avatar = `https://cdn.discordapp.com/avatars/${json.inviter.id}/${json.inviter.avatar}.webp`;
+					if (json.guild)
+						json.guild.icon = `https://cdn.discordapp.com/icons/${json.guild.id}/${json.guild.icon}.webp`;
+					if (json.inviter)
+						json.inviter.avatar = `https://cdn.discordapp.com/avatars/${json.inviter.id}/${json.inviter.avatar}.webp`;
 					return json;
 				});
 			}
