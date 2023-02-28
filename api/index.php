@@ -50,7 +50,7 @@ switch ($lang) {
 		<pre id="jsonOutput"></pre>
 		<script>
 			async function retrieveDiscordApi(inviteCode) {
-				return fetch(`invites-api.php?invite=${inviteCode}`).then(res => {
+				return fetch(`https://discord.com/api/v10/invites/${inviteCode}?with_counts=true`).then(res => {
 					return res.json();
 				}).then(json => {
 					json.guild.icon = `https://cdn.discordapp.com/icons/${json.guild.id}/${json.guild.icon}.webp`;
