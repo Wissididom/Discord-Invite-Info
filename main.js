@@ -3,7 +3,7 @@ function sanitizeInvite(invite) {
 }
 
 async function requestDiscordApi(inviteCode) {
-	return fetch(`https://discord.com/api/v10/${inviteCode}?with_counts=true`).then(res => {
+	return fetch(`https://discord.com/api/v10/invites/${inviteCode}?with_counts=true`).then(res => {
 		return res.json();
 	}).then(json => {
 		if (json.guild)
