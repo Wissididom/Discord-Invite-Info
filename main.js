@@ -16,7 +16,7 @@ async function requestDiscordApi(inviteCode) {
 
 async function show() {
 	try {
-		let inviteCode = sanitzeInvite(document.getElementById('invite').value);
+		let inviteCode = sanitizeInvite(document.getElementById('invite').value);
 		let inviteData = await requestDiscordApi(inviteCode);
 		document.getElementById('jsonOutput').innerHTML = JSON.stringify(inviteData, null, 4);
 		console.log('Successfully displayed the following in the pre:', inviteData);
@@ -27,7 +27,7 @@ async function show() {
 
 async function copy(successMsg, errorMsg) {
 	try {
-		let inviteCode = sanitzeInvite(document.getElementById('invite').value);
+		let inviteCode = sanitizeInvite(document.getElementById('invite').value);
 		let inviteData = await requestDiscordApi(inviteCode);
 		await navigator.clipboard.writeText(JSON.stringify(inviteData, null, 4));
 		console.log('Successfully copied the following to clipboard:', inviteData);
@@ -40,7 +40,7 @@ async function copy(successMsg, errorMsg) {
 
 async function save() {
 	try {
-		let inviteCode = sanitzeInvite(document.getElementById('invite').value);
+		let inviteCode = sanitizeInvite(document.getElementById('invite').value);
 		let inviteData = await requestDiscordApi(inviteCode);
 		let blob = new Blob([JSON.stringify(inviteData, null, 4)], {type: 'application/json'});
 		let a = document.createElement('a');
