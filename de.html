@@ -1,0 +1,83 @@
+$invite = "Geben Sie hier den Discord Invite ein (Format: discord.com/invite/sdgsdgsg, discord.gg/sdgsdgsg, discord.gg/sdgsdgsg oder sdgsdgsg, macht nichts aus, wenn ein http:// oder https:// am Anfang steht):";
+$show = "Daten anzeigen";
+$copy = "Daten kopieren";
+$copiedSuccessfully = "Erfolgreich kopiert";
+$copyFailed = "Fehler beim Kopieren";
+$save = "Daten speichern";
+?>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Discord-Invite-Info</title>
+	</head>
+	<body>
+		<label for="invite">Geben Sie hier den Discord Invite ein (Format: discord.com/invite/sdgsdgsg, discord.gg/sdgsdgsg, discord.gg/sdgsdgsg oder sdgsdgsg, macht nichts aus, wenn ein http:// oder https:// am Anfang steht):</label>
+		<div style="display: flex; flex-direction: row;">
+			<input type="text" id="invite" name="invite" style="width: 100%;" />
+		</div>
+		<p></p>
+		<div style="display: flex; flex-direction: row;">
+			<input type="button" onclick="show()" style="flex: 1;" value="Daten anzeigen" />
+			&nbsp;
+			<input type="button" onclick="copy('Erfolgreich kopiert', 'Fehler beim Kopieren')" style="flex: 1;" value="Daten kopieren" />
+			&nbsp;
+			<input type="button" onclick="save()" style="flex: 1;" value="Daten speichern" />
+		</div>
+		<pre id="jsonOutput"></pre>
+		<script>
+			async function retrieveDiscordApi(inviteCode) {
+				return fetch(`https://discord.com/api/v10/invites/${inviteCode}?with_counts=true`).then(res => {
+					return res.json();
+				}).then(json => {
+					if (json.guild)
+						json.guild.icon = `https://cdn.discordapp.com/icons/${json.guild.id}/${json.guild.icon}.webp`;
+					if (json.inviter)
+						json.inviter.avatar = `https://cdn.discordapp.com/avatars/${json.inviter.id}/${json.inviter.avatar}.webp`;
+					return json;
+				});
+			}
+			async function show() {
+				try {
+					let discordInvite = document.getElementById('invite').value;
+					let inviteCode = discordInvite.indexOf('/') >= 0 ? discordInvite.substring(discordInvite.lastIndexOf('/') + 1) : discordInvite;
+					let inviteData = await retrieveDiscordApi(inviteCode);
+					document.getElementById('jsonOutput').innerHTML = JSON.stringify(inviteData, null, 4);
+					console.log(`Successfully displayed the following in the pre:`, inviteData);
+				} catch (err) {
+					console.error('Failed to display: ', err);
+				}
+			}
+			async function copy(successMsg, errorMsg) {
+				try {
+					let discordInvite = document.getElementById('invite').value;
+					let inviteCode = discordInvite.indexOf('/') >= 0 ? discordInvite.substring(discordInvite.lastIndexOf('/') + 1) : discordInvite;
+					let inviteData = await retrieveDiscordApi(inviteCode);
+					await navigator.clipboard.writeText(JSON.stringify(inviteData, null, 4));
+					console.log(`Successfully copied the following to clipboard:`, inviteData);
+					alert(successMsg);
+				} catch (err) {
+					console.error('Failed to copy: ', err);
+					alert(errorMsg);
+				}
+			}
+			async function save() {
+				try {
+					let discordInvite = document.getElementById('invite').value;
+					let inviteCode = discordInvite.indexOf('/') >= 0 ? discordInvite.substring(discordInvite.lastIndexOf('/') + 1) : discordInvite;
+					let inviteData = await retrieveDiscordApi(inviteCode);
+					let blob = new Blob([JSON.stringify(inviteData, null, 4)], {type: "application/json"});
+					let a = document.createElement('a');
+					a.download = `${inviteCode}.json`;
+					a.href = URL.createObjectURL(blob);
+					a.click();
+					console.log(`Successfully copied the following to clipboard:`, inviteData);
+				} catch (err) {
+					console.error('Failed to copy: ', err);
+				}
+			}
+		</script>
+	</body>
+</html>
