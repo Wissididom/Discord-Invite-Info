@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Discord-Invite-Info</title>
+	</head>
+	<body>
+		<label for="invite">Skriv inn Discord Invite her (format: discord.com/invite/sdgsdgsg, discord.gg/sdgsdgsg, discord.gg/sdgsdgsg eller sdgsdgsg, spiller ingen rolle om det står http:// eller https:// i begynnelsen):</label>
+		<div style="display: flex; flex-direction: row;">
+			<input type="text" id="invite" name="invite" style="width: 100%;" />
+		</div>
+		<p></p>
+		<div style="display: flex; flex-direction: row;">
+			<input type="button" onclick="show()" style="flex: 1;" value="Vis data" />
+			&nbsp;
+			<input type="button" onclick="copy('Vellykket kopiert', 'Feil under kopiering')" style="flex: 1;" value="Kopier data" />
+			&nbsp;
+			<input type="button" onclick="save()" style="flex: 1;" value="Lagre data" />
+		</div>
+		<pre id="jsonOutput"></pre>
+		<script src="main.js"></script>
+	</body>
+</html>
