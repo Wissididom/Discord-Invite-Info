@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Discord-Invite-Info</title>
+	</head>
+	<body>
+		<label for="invite">Voer hier de Discord Invite in (formaat: discord.com/invite/sdgsdgsg, discord.gg/sdgsdgsg, discord.gg/sdgsdgsg of sdgsdgsg, maakt niet uit of er een http:// of https:// aan het begin staat):</label>
+		<div style="display: flex; flex-direction: row;">
+			<input type="text" id="invite" name="invite" style="width: 100%;" />
+		</div>
+		<p></p>
+		<div style="display: flex; flex-direction: row;">
+			<input type="button" onclick="show()" style="flex: 1;" value="Toon gegevens" />
+			&nbsp;
+			<input type="button" onclick="copy('Succesvol gekopieerd', 'Fout bij kopiëren')" style="flex: 1;" value="Kopieer gegevens" />
+			&nbsp;
+			<input type="button" onclick="save()" style="flex: 1;" value="Gegevens opslaan" />
+		</div>
+		<pre id="jsonOutput"></pre>
+		<script src="main.js"></script>
+	</body>
+</html>
